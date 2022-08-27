@@ -41,8 +41,8 @@ type Character{
     name: String!
     class: String
     level: Int
-    baseStats: [Stats]
-    growthRates: [Growths]
+    baseStats: Stats
+    growthRates: Growths
     weaponRanks: [Rank]
     affinity: String
 }

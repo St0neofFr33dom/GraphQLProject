@@ -1,7 +1,13 @@
 import mongoose from "mongoose";
 
 
-const statsSchema = new mongoose.Schema({
+
+
+const characterSchema = new mongoose.Schema({
+    name: String,
+    class: String,
+    level: Number,
+    baseStats: {
         hitPoints: Number,
         strength: Number,
         magic: Number,
@@ -13,9 +19,8 @@ const statsSchema = new mongoose.Schema({
         movement: Number,
         constitution: Number,
         weight: Number,
-})
-
-const growthsSchema = new mongoose.Schema({
+},
+    growthRates: {
         hitPoints: Number,
         strength: Number,
         magic: Number,
@@ -24,17 +29,8 @@ const growthsSchema = new mongoose.Schema({
         luck: Number,
         defense: Number,
         resistance: Number,
-})
-
-
-const characterSchema = new mongoose.Schema({
-    name: String,
-    class: String,
-    level: Number,
-    baseStats: statsSchema,
-    growthRates: growthsSchema,
-    weaponRanks: [{name: String, rank: String}],
-    skills: [{type: mongoose.SchemaTypes.ObjectId, ref: "Skill"}],
+},
+    weaponRanks: [{weapon: String, rank: String}],
     affinity: String,
 })
 

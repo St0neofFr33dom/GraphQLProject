@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import Character from "./fe9Schemas.js"
+import characters from "./data/characters.js"
+import {Character} from "./models/fe9Schemas.js"
 
 mongoose.connect(
   "mongodb://localhost/fe9",
@@ -9,3 +10,6 @@ mongoose.connect(
   (e) => console.error(e)
 );
 
+const unit = new Character(characters[0])
+
+await unit.save()
