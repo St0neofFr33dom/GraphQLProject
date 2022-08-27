@@ -70,9 +70,9 @@ const skillsSchema = new mongoose.Schema({
 
 
 
-const character = mongoose.model("Character", characterSchema)
-const skill = mongoose.model("Skill", skillsSchema)
-const weapon = mongoose.model("Weapon", weaponsSchema)
-const items = mongoose.model("Item", itemsSchema)
+const Character = mongoose.model("Character", characterSchema)
+const Skill = mongoose.model("Skill", skillsSchema)
+const Weapon = mongoose.model("Weapon", weaponsSchema)
+const Item = mongoose.model("Item", itemsSchema)
 
-export {character, skill, weapon, items}
+export {Character, Skill, Weapon, Item}

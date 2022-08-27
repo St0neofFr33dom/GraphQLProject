@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon db.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.10.2",
+    "apollo-server-express": "^3.10.2",
     "express": "^4.18.1",
     "graphql": "^16.6.0",
     "mongoose": "^6.5.3"
