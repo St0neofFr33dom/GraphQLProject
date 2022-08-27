@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Character from "./fe9Schemas.js"
 
 mongoose.connect(
   "mongodb://localhost/appdb",
@@ -7,3 +8,4 @@ mongoose.connect(
   },
   (e) => console.error(e)
 );
+
