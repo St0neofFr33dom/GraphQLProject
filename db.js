@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import characters from "./data/characters.js"
-import {Character} from "./models/fe9Schemas.js"
+import skills from "./data/skills.js";
+import {Character, Skill} from "./models/fe9Schemas.js"
 
 mongoose.connect(
   "mongodb://localhost/fe9",
@@ -10,6 +11,16 @@ mongoose.connect(
   (e) => console.error(e)
 );
 
-const unit = new Character(characters[0])
 
-await unit.save()
+async function populateTable(data, schema){
+  for (let i = 0; i < data.length; i++){
+    let entry = new schema(data[i])
+    await entry.save()
+  }
+  console.log("Finished")
+}
+// const unit = new Character(characters[0])
+
+// await unit.save()
+
+populateTable(skills, Skill)

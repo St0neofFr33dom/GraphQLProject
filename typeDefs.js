@@ -4,6 +4,7 @@ export const typeDefs = gql`
 
 type Query{
     characters: [Character!]!
+    skills: [Skill!]!
 }
 
 type Stats{
@@ -47,6 +48,12 @@ type Character{
     affinity: String
 }
 
-
+type Skill{
+    id: ID!
+    name: String!,
+    description: String!,
+    activationRequirements: String!,
+    capacity: Int!,
+}
 
 `
