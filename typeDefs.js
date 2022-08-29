@@ -6,6 +6,8 @@ type Query{
     characters: [Character!]!
     getSkills(input: SkillInputs): [Skill!]!
     getWeapons(input: WeaponInputs): [Weapon!]!
+    getStaves(input: StaffInputs): [Staff!]!
+    getItems(input: ItemInputs): [Item!]!
 }
 
 type Stats{
@@ -89,6 +91,48 @@ input WeaponInputs{
     criticalRate: Int
     weight: Int
     range: String
+    uses: Int
+    price: Int
+}
+
+type Staff{
+    id: ID!
+    name: String!
+    rank: String!
+    weight: Int
+    hitRate: Int
+    range: String!
+    uses: Int!
+    price: Int
+    weaponExperience: Int!
+    experience: Int!
+    effect: String!
+    notes: String
+}
+
+input StaffInputs{
+    id: ID
+    name: String
+    rank: String
+    weight: Int
+    hitRate: Int
+    uses: Int
+    price: Int
+    weaponExperience: Int
+    experience: Int
+}
+
+type Item{
+    id: ID!
+    name: String!
+    uses: Int!
+    price: Int
+    effect: String
+}
+
+input ItemInputs{
+    id: ID
+    name: String
     uses: Int
     price: Int
 }

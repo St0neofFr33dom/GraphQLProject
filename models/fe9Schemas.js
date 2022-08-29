@@ -53,8 +53,8 @@ const weaponsSchema = new mongoose.Schema({
 const itemsSchema = new mongoose.Schema({
         name: String,
         uses: Number,
-        worth: Number,
-        notes: String
+        price: Number,
+        effect: String
 })
 
 const skillsSchema = new mongoose.Schema({
@@ -64,11 +64,24 @@ const skillsSchema = new mongoose.Schema({
         capacity: Number,
 })
 
-
+const stavesSchema = new mongoose.Schema({
+        name: String,
+        rank: String,
+        weight: Number,
+        hitRate: Number,
+        range: String,
+        uses: Number,
+        price: Number,
+        weaponExperience: Number,
+        experience: Number,
+        effect: String,
+        notes: String
+})
 
 const Character = mongoose.model("Character", characterSchema)
 const Skill = mongoose.model("Skill", skillsSchema)
 const Weapon = mongoose.model("Weapon", weaponsSchema)
 const Item = mongoose.model("Item", itemsSchema)
+const Staff = mongoose.model("Staff", stavesSchema)
 
-export {Character, Skill, Weapon, Item}
+export {Character, Skill, Weapon, Item, Staff}
