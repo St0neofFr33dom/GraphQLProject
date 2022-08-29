@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import characters from "./data/characters.js"
 import skills from "./data/skills.js";
-import {Character, Skill} from "./models/fe9Schemas.js"
+import {swords, lances, axes, bows, tomes, knives, laguzeWeapons} from "./data/weapons.js"
+import {Character, Skill, Weapon} from "./models/fe9Schemas.js"
+
 
 mongoose.connect(
   "mongodb://localhost/fe9",
@@ -23,4 +25,12 @@ async function populateTable(data, schema){
 
 // await unit.save()
 
-populateTable(skills, Skill)
+
+// await populateTable(skills, Skill)
+// await populateTable(swords, Weapon)
+// await populateTable(lances, Weapon)
+// await populateTable(axes, Weapon)
+// await populateTable(bows, Weapon)
+// await populateTable(tomes, Weapon)
+// await populateTable(knives, Weapon)
+// await populateTable(laguzeWeapons, Weapon)

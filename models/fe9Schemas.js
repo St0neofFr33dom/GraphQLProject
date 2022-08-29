@@ -44,7 +44,7 @@ const weaponsSchema = new mongoose.Schema({
         weight: Number,
         range: String,
         uses: Number,
-        worth: Number,
+        price: Number,
         weaponExperience: Number,
         experience: Number,
         notes: String
