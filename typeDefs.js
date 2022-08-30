@@ -53,7 +53,7 @@ type Character{
     growthRates: Growths!
     weaponRanks: [Rank]!
     skills: [String]
-    affinity: String!
+    affinity: Affinity!
     supportPartners: [String]
 }
 
@@ -190,7 +190,7 @@ type Beorc{
     promoted: Boolean!
     promotesInto: String
     promotionGains: PromotionGains
-    occultSkill: String
+    occultSkill: Skill
     notes: String
 }
 
@@ -201,7 +201,6 @@ input BeorcInputs{
     skill: String
     promoted: Boolean
     promotesInto: String
-    occultSkill: String
 }
 
 type TransformationBonuses{
@@ -219,15 +218,15 @@ type TransformationBonuses{
 type Laguz{
     id: ID!
     name: String!
+    weapon: Weapon
     maxStats: MaxStats!
     transformationBonuses: TransformationBonuses!
-    occultSkill: Skill
+    occultSkill: Skill!
 }
 
 input LaguzInputs{
     id: ID
     name: String
-    occultSkill: String
 }
 
 type Affinity{

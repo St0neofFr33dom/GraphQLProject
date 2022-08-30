@@ -30,17 +30,17 @@ const characterSchema = new Schema({
         defense: Number,
         resistance: Number,
 },
-    weaponRanks: [{weapon: String, rank: String}],
+//     weaponRanks: [{weapon: String, rank: String}],
 //     skills: [{type: Schema.Types.ObjectId, ref: "Skill"}],
 //     topInventory: [{type: Schema.Types.ObjectId, ref: "Weapon"} || {type: Schema.Types.ObjectId, ref: "Staff"}],
 //     bottomInventory: [{type: Schema.Types.ObjectId, ref: "Item"} || {type: Schema.Types.ObjectId, ref: "Accessory"}],
-//     affinity: {type: Schema.Types.ObjectId, ref: "Affinity"},
-//     supportPartners: [{type: Schema.Types.ObjectId, ref: "Character"}]
-    skills: [String],
-    topInventory: [String],
-    bottomInventory: [String],
-    affinity: String,
-    supportPartners: [String]
+    affinity: {type: Schema.Types.ObjectId, ref: "Affinity"},
+//     supportPartners: [{type: Schema.Types.ObjectId, ref: "Character"}],
+//     skills: [String],
+//     topInventory: [String],
+//     bottomInventory: [String],
+//     affinity: String,
+//     supportPartners: [String]
 })
 
 const weaponsSchema = new Schema({
@@ -96,6 +96,7 @@ const accessoriesSchema = new Schema({
 
 const laguzSchema = new Schema({
         name: String,
+        weapon: {type: Schema.Types.ObjectId, ref: "Weapon"},
         maxStats: {
             hitPoints: Number,
             strength: Number,
@@ -147,7 +148,7 @@ const beorcSchema = new  Schema({
             movement: Number,
             capacity: Number,
         },
-        occultSkill: String,
+        occultSkill: {type: Schema.Types.ObjectId, ref: "Skill"},
         notes: String
 })
 
