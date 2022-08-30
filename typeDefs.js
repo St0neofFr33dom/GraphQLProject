@@ -8,6 +8,10 @@ type Query{
     getWeapons(input: WeaponInputs): [Weapon!]!
     getStaves(input: StaffInputs): [Staff!]!
     getItems(input: ItemInputs): [Item!]!
+    getAccessories(input: AccessoryInputs): [Accessory!]!
+    getBeorcClasses(input: BeorcInputs): [Beorc!]!
+    getLaguzClasses(input: LaguzInputs): [Laguz!]!
+    getAffinities(input: AffinityInputs): [Affinity!]!
 }
 
 type Stats{
@@ -43,19 +47,21 @@ type Rank{
 type Character{
     id: ID!
     name: String!
-    class: String
-    level: Int
-    baseStats: Stats
-    growthRates: Growths
-    weaponRanks: [Rank]
-    affinity: String
+    class: String!
+    level: Int!
+    baseStats: Stats!
+    growthRates: Growths!
+    weaponRanks: [Rank]!
+    skills: [String]
+    affinity: String!
+    supportPartners: [String]
 }
 
 type Skill{
     id: ID!
     name: String!
     description: String!
-    activationRequirements: String!
+    activationRequirements: String
     capacity: Int!
 }
 
@@ -136,4 +142,108 @@ input ItemInputs{
     uses: Int
     price: Int
 }
+
+type Accessory{
+    id: ID!
+    name: String!
+    price: Int
+    effect: String!
+    notes: String
+}
+
+input AccessoryInputs{
+    id: ID
+    name: String
+    price: Int
+}
+
+type MaxStats{
+    hitPoints: Int
+    strength: Int
+    magic: Int
+    skill: Int
+    speed: Int
+    luck: Int
+    defense: Int
+    resistance: Int
+}
+
+type PromotionGains{
+    hitPoints: Int
+    strength: Int
+    magic: Int
+    skill: Int
+    speed: Int
+    defense: Int
+    resistance: Int
+    constitution: Int
+    movement: Int
+    capacity: Int
+}
+
+type Beorc{
+    id: ID!
+    name: String!
+    weapons: [String]
+    maxStats: MaxStats!
+    skill: [String],   
+    promoted: Boolean!
+    promotesInto: String
+    promotionGains: PromotionGains
+    occultSkill: String
+    notes: String
+}
+
+input BeorcInputs{
+    id: ID
+    name: String
+    weapons: String
+    skill: String
+    promoted: Boolean
+    promotesInto: String
+    occultSkill: String
+}
+
+type TransformationBonuses{
+        strength: Int
+        magic: Int
+        skill: Int
+        speed: Int
+        defense: Int
+        resistance: Int
+        constitution: Int
+        movement: Int
+    }
+
+
+type Laguz{
+    id: ID!
+    name: String!
+    maxStats: MaxStats!
+    transformationBonuses: TransformationBonuses!
+    occultSkill: String!
+}
+
+input LaguzInputs{
+    id: ID
+    name: String
+    occultSkill: String
+}
+
+type Affinity{
+    name: String!
+    accuracy: Float
+    avoid: Float
+    attack: Float
+    defense: Float
+}
+
+input AffinityInputs{
+    name: String
+    accuracy: Float
+    avoid: Float
+    attack: Float
+    defense: Float
+}
+
 `
