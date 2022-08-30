@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 
+const Schema = mongoose.Schema
 
-
-
-const characterSchema = new mongoose.Schema({
+const characterSchema = new Schema({
     name: String,
-//     class: {type: mongoose.Schema.Types.ObjectId, ref: "Beorc"} || {type: mongoose.Schema.Types.ObjectId, ref: "Laguz"},
+//     class: {type: Schema.Types.ObjectId, ref: "Beorc"} || {type:Schema.Types.ObjectId, ref: "Laguz"},
     class: String,
     level: Number,
     baseStats: {
@@ -32,11 +31,11 @@ const characterSchema = new mongoose.Schema({
         resistance: Number,
 },
     weaponRanks: [{weapon: String, rank: String}],
-//     skills: [{type: mongoose.Schema.Types.ObjectId, ref: "Skill"}],
-//     topInventory: [{type: mongoose.Schema.Types.ObjectId, ref: "Weapon"} || {type: mongoose.Schema.Types.ObjectId, ref: "Staff"}],
-//     bottomInventory: [{type: mongoose.Schema.Types.ObjectId, ref: "Item"} || {type: mongoose.Schema.Types.ObjectId, ref: "Accessory"}],
-//     affinity: {type: mongoose.Schema.Types.ObjectId, ref: "Affinity"},
-//     supportPartners: [{type: mongoose.Schema.Types.ObjectId, ref: "Character"}]
+//     skills: [{type: Schema.Types.ObjectId, ref: "Skill"}],
+//     topInventory: [{type: Schema.Types.ObjectId, ref: "Weapon"} || {type: Schema.Types.ObjectId, ref: "Staff"}],
+//     bottomInventory: [{type: Schema.Types.ObjectId, ref: "Item"} || {type: Schema.Types.ObjectId, ref: "Accessory"}],
+//     affinity: {type: Schema.Types.ObjectId, ref: "Affinity"},
+//     supportPartners: [{type: Schema.Types.ObjectId, ref: "Character"}]
     skills: [String],
     topInventory: [String],
     bottomInventory: [String],
@@ -44,7 +43,7 @@ const characterSchema = new mongoose.Schema({
     supportPartners: [String]
 })
 
-const weaponsSchema = new mongoose.Schema({
+const weaponsSchema = new Schema({
         name: String,
         type: String,
         rank: String,
@@ -60,21 +59,21 @@ const weaponsSchema = new mongoose.Schema({
         notes: String
 })
 
-const itemsSchema = new mongoose.Schema({
+const itemsSchema = new Schema({
         name: String,
         uses: Number,
         price: Number,
         effect: String
 })
 
-const skillsSchema = new mongoose.Schema({
+const skillsSchema = new Schema({
         name: String,
         description: String,
         activationRequirements: String,
         capacity: Number,
 })
 
-const stavesSchema = new mongoose.Schema({
+const stavesSchema = new Schema({
         name: String,
         rank: String,
         weight: Number,
@@ -88,14 +87,14 @@ const stavesSchema = new mongoose.Schema({
         notes: String
 })
 
-const accessoriesSchema = new mongoose.Schema({
+const accessoriesSchema = new Schema({
         name: String,
         price: Number,
         effect: String,
         notes: String
 })
 
-const laguzSchema = new mongoose.Schema({
+const laguzSchema = new Schema({
         name: String,
         maxStats: {
             hitPoints: Number,
@@ -117,10 +116,10 @@ const laguzSchema = new mongoose.Schema({
             constitution: Number,
             movement: Number,
         },
-        occultSkill: String
+        occultSkill: {type: Schema.Types.ObjectId, ref: "Skill"}
 })
 
-const beorcSchema = new  mongoose.Schema({
+const beorcSchema = new  Schema({
         name: String,
         weapons: [String],
         maxStats: {
@@ -152,7 +151,7 @@ const beorcSchema = new  mongoose.Schema({
         notes: String
 })
 
-const affinitySchema = new mongoose.Schema({
+const affinitySchema = new Schema({
         name: String,
         accuracy: Number,
         avoid: Number,

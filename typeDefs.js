@@ -221,7 +221,7 @@ type Laguz{
     name: String!
     maxStats: MaxStats!
     transformationBonuses: TransformationBonuses!
-    occultSkill: String!
+    occultSkill: Skill
 }
 
 input LaguzInputs{
