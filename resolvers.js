@@ -9,7 +9,7 @@ export const resolvers = {
       getItems: async (_, arg) => await Item.find(arg.input),
       getAccessories: async (_, arg) => await Accessory.find(arg.input),
       getBeorcClasses: async (_, arg) => await Beorc.find(arg.input).populate({path: "occultSkill"}),
-      getLaguzClasses: async (_, arg) => await Laguz.find(arg.input).populate({path: "occultSkill"}).populate({path:"weapon"}),
+      getLaguzClasses: async (_, arg) => await Laguz.find(arg.input),
       getAffinities: async (_, arg) => await Affinity.find(arg.input),
       },
   };

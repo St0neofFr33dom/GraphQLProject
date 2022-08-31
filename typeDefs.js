@@ -59,7 +59,7 @@ type Character{
 
 type Skill{
     id: ID!
-    name: String!
+    name: String
     description: String!
     activationRequirements: String
     capacity: Int!
@@ -221,7 +221,8 @@ type Laguz{
     weapon: Weapon
     maxStats: MaxStats!
     transformationBonuses: TransformationBonuses!
-    occultSkill: Skill!
+    occultSkill: Skill
+    
 }
 
 input LaguzInputs{

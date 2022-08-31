@@ -96,7 +96,7 @@ const accessoriesSchema = new Schema({
 
 const laguzSchema = new Schema({
         name: String,
-        weapon: {type: Schema.Types.ObjectId, ref: "Weapon"},
+        weaponName: String,
         maxStats: {
             hitPoints: Number,
             strength: Number,
@@ -117,8 +117,31 @@ const laguzSchema = new Schema({
             constitution: Number,
             movement: Number,
         },
-        occultSkill: {type: Schema.Types.ObjectId, ref: "Skill"}
-})
+        skillName: String
+},
+{
+        virtuals:{
+                occultSkill: {
+                        async get(){
+                                let entry = await Skill.findOne({name:this.skillName})
+                                return entry
+        
+                        }
+                },
+                weapon: {
+                        async get(){
+                                let entry = await Weapon.findOne({name:this.weaponName})
+                                return entry
+                                
+                        }
+                }
+        },
+        toJSON:{virtuals: true},
+        toObject:{virtuals: true},
+}
+)
+
+
 
 const beorcSchema = new  Schema({
         name: String,
