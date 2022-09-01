@@ -31,8 +31,8 @@ const characterSchema = new Schema({
 },
     weaponRanks: [{weapon: String, rank: String}],
     skillNames: [String],
-//     topInventory: [String],
-//     bottomInventory: [String],
+    topInventory: [String],
+    bottomInventory: [String],
     affinityName: String,
     supportPartners: [String],
 },
@@ -60,6 +60,32 @@ const characterSchema = new Schema({
                                 let list = []
                                         for (let i = 0; i < this.skillNames.length; i++){
                                                 let entry = await Skill.findOne({name:this.skillNames[i]})
+                                                list.push(entry)
+                                        }
+                                return list
+                        }
+                },
+                equipment: {
+                        async get(){
+                                let list = []
+                                        for (let i = 0; i < this.topInventory.length; i++){
+                                                let entry = await Weapon.findOne({name:this.topInventory[i]})
+                                                if (!entry){
+                                                        entry = await Staff.findOne({name:this.topInventory[i]})   
+                                                }
+                                                list.push(entry)
+                                        }
+                                return list
+                        }
+                },
+                items: {
+                        async get(){
+                                let list = []
+                                        for (let i = 0; i < this.bottomInventory.length; i++){
+                                                let entry = await Item.findOne({name:this.bottomInventory[i]})
+                                                if (!entry){
+                                                        entry = await Accessory.findOne({name:this.bottomInventory[i]})   
+                                                }
                                                 list.push(entry)
                                         }
                                 return list

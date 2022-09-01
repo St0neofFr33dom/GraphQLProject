@@ -13,6 +13,28 @@ export const resolvers = {
         return null
       }
     },
+    Top:{
+      __resolveType(obj) {
+        if(obj.might){
+          return 'Weapon'
+        }
+        if(obj.experience){
+          return 'Staff'
+        }
+        return null
+      }
+    },
+    Bottom:{
+      __resolveType(obj) {
+        if(obj.uses){
+          return 'Item'
+        }
+        if(obj.effect){
+          return 'Accessory'
+        }
+        return null
+      }
+    },
     Query: {
       characters: async () => await Character.find(),
       getSkills: async (_, arg) => await Skill.find(arg.input),

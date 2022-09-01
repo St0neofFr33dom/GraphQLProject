@@ -53,6 +53,8 @@ type Character{
     growthRates: Growths!
     weaponRanks: [Rank]!
     skills: [Skill]
+    equipment: [Top]
+    items: [Bottom]
     affinity: Affinity!
     supportPartners: [String]
 }
