@@ -35,12 +35,12 @@ async function replaceIDs(){
 // const entry = new Laguz(laguzClasses[0])
 // await entry.save()
 
-// const result = await Laguz.find()
-// console.log(result[0])
 
 // await replaceIDs()
 
 // await populateTable(characters, Character)
+// const result = await Character.find();
+// console.log(result)
 // await populateTable(skills, Skill)
 // await populateTable(swords, Weapon)
 // await populateTable(lances, Weapon)
@@ -53,6 +53,8 @@ async function replaceIDs(){
 // await populateTable(items, Item)
 //  await populateTable(accessories, Accessory)
 //  await populateTable(affinities, Affinity)
- // await populateTable(beorcClasses, Beorc)
-await populateTable(laguzClasses, Laguz)
+ await populateTable(beorcClasses, Beorc)
+ await populateTable(laguzClasses, Laguz)
+ const result = await Beorc.find();
+ console.log(result)
  

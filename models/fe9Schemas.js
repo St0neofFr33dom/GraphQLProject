@@ -4,8 +4,7 @@ const Schema = mongoose.Schema
 
 const characterSchema = new Schema({
     name: String,
-//     class: {type: Schema.Types.ObjectId, ref: "Beorc"} || {type:Schema.Types.ObjectId, ref: "Laguz"},
-    class: String,
+    className: String,
     level: Number,
     baseStats: {
         hitPoints: Number,
@@ -30,18 +29,47 @@ const characterSchema = new Schema({
         defense: Number,
         resistance: Number,
 },
-//     weaponRanks: [{weapon: String, rank: String}],
-//     skills: [{type: Schema.Types.ObjectId, ref: "Skill"}],
-//     topInventory: [{type: Schema.Types.ObjectId, ref: "Weapon"} || {type: Schema.Types.ObjectId, ref: "Staff"}],
-//     bottomInventory: [{type: Schema.Types.ObjectId, ref: "Item"} || {type: Schema.Types.ObjectId, ref: "Accessory"}],
-    affinity: {type: Schema.Types.ObjectId, ref: "Affinity"},
-//     supportPartners: [{type: Schema.Types.ObjectId, ref: "Character"}],
-//     skills: [String],
+    weaponRanks: [{weapon: String, rank: String}],
+    skillNames: [String],
 //     topInventory: [String],
 //     bottomInventory: [String],
-//     affinity: String,
-//     supportPartners: [String]
-})
+    affinityName: String,
+    supportPartners: [String],
+},
+{
+        virtuals:{
+                affinity: {
+                        async get(){
+                                let entry = await Affinity.findOne({name:this.affinityName})
+                                return entry
+        
+                        }
+                },
+                class: {
+                        async get(){
+                                let entry = await Beorc.findOne({name:this.className})
+                                if (!entry){
+                                        entry = await Laguz.findOne({name:this.className})   
+                                }
+                                return entry
+        
+                        }
+                },
+                skills: {
+                        async get(){
+                                let list = []
+                                        for (let i = 0; i < this.skillNames.length; i++){
+                                                let entry = await Skill.findOne({name:this.skillNames[i]})
+                                                list.push(entry)
+                                        }
+                                return list
+                        }
+                },
+        },
+        toJSON:{virtuals: true},
+        toObject:{virtuals: true},
+}
+)
 
 const weaponsSchema = new Schema({
         name: String,
@@ -96,6 +124,7 @@ const accessoriesSchema = new Schema({
 
 const laguzSchema = new Schema({
         name: String,
+        race: String,
         weaponName: String,
         maxStats: {
             hitPoints: Number,
@@ -145,6 +174,7 @@ const laguzSchema = new Schema({
 
 const beorcSchema = new  Schema({
         name: String,
+        race: String,
         weapons: [String],
         maxStats: {
             hitPoints: Number,
@@ -171,9 +201,23 @@ const beorcSchema = new  Schema({
             movement: Number,
             capacity: Number,
         },
-        occultSkill: {type: Schema.Types.ObjectId, ref: "Skill"},
+        skillName: String,
         notes: String
-})
+},
+{
+        virtuals:{
+                occultSkill: {
+                        async get(){
+                                let entry = await Skill.findOne({name:this.skillName})
+                                return entry
+        
+                        }
+                },
+        },
+        toJSON:{virtuals: true},
+        toObject:{virtuals: true},
+}
+)
 
 const affinitySchema = new Schema({
         name: String,

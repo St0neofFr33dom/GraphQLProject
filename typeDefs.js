@@ -47,12 +47,12 @@ type Rank{
 type Character{
     id: ID!
     name: String!
-    class: String!
+    class(contains: String): Class!
     level: Int!
     baseStats: Stats!
     growthRates: Growths!
     weaponRanks: [Rank]!
-    skills: [String]
+    skills: [Skill]
     affinity: Affinity!
     supportPartners: [String]
 }
@@ -128,6 +128,9 @@ input StaffInputs{
     experience: Int
 }
 
+union Top = Weapon | Staff
+
+
 type Item{
     id: ID!
     name: String!
@@ -156,6 +159,8 @@ input AccessoryInputs{
     name: String
     price: Int
 }
+
+union Bottom = Item | Accessory
 
 type MaxStats{
     hitPoints: Int
@@ -229,6 +234,11 @@ input LaguzInputs{
     id: ID
     name: String
 }
+
+union Class = Beorc | Laguz
+
+    
+
 
 type Affinity{
     name: String!
