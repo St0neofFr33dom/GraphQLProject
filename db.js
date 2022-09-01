@@ -11,7 +11,7 @@ import {Character, Skill, Staff, Weapon, Item, Accessory, Affinity, Beorc, Laguz
 
 
 mongoose.connect(
-  "mongodb://localhost/fe9test",
+  process.env.CONNECTION_STRING,
   () => {
     console.log("Connected to database");
   },
@@ -39,22 +39,19 @@ async function replaceIDs(){
 // await replaceIDs()
 
 await populateTable(characters, Character)
-const result = await Character.find();
-console.log(result)
-// await populateTable(skills, Skill)
-// await populateTable(swords, Weapon)
-// await populateTable(lances, Weapon)
-// await populateTable(axes, Weapon)
-// await populateTable(bows, Weapon)
-// await populateTable(tomes, Weapon)
-// await populateTable(knives, Weapon)
-// await populateTable(laguzeWeapons, Weapon)
-// await populateTable(staves, Staff)
-// await populateTable(items, Item)
-//  await populateTable(accessories, Accessory)
-//  await populateTable(affinities, Affinity)
-//  await populateTable(beorcClasses, Beorc)
-//  await populateTable(laguzClasses, Laguz)
-//  const result = await Beorc.find();
-//  console.log(result)
- 
+await populateTable(skills, Skill)
+await populateTable(swords, Weapon)
+await populateTable(lances, Weapon)
+await populateTable(axes, Weapon)
+await populateTable(bows, Weapon)
+await populateTable(tomes, Weapon)
+await populateTable(knives, Weapon)
+await populateTable(laguzeWeapons, Weapon)
+await populateTable(staves, Staff)
+await populateTable(items, Item)
+ await populateTable(accessories, Accessory)
+ await populateTable(affinities, Affinity)
+ await populateTable(beorcClasses, Beorc)
+ await populateTable(laguzClasses, Laguz)
+
+

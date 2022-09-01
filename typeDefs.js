@@ -47,16 +47,35 @@ type Rank{
 type Character{
     id: ID!
     name: String!
-    class(contains: String): Class!
+    class: Class!
     level: Int!
     baseStats: Stats!
     growthRates: Growths!
     weaponRanks: [Rank]!
-    skills: [Skill]
-    equipment: [Top]
-    items: [Bottom]
+    skills: [Skill]!
+    equipment: [Top]!
+    items: [Bottom]!
     affinity: Affinity!
-    supportPartners: [String]
+    supportPartners: [Support]!
+    critBonusPartners: [CritSupport]!
+    critNegation: [String]!
+}
+
+type Support{
+    name: String
+    affinity: String
+    chapters: Chapter
+}
+
+type Chapter{
+    C: Int
+    B: Int
+    A: Int
+}
+
+type CritSupport{
+    name: String
+    critBonus: Int
 }
 
 type Skill{
@@ -193,7 +212,7 @@ type Beorc{
     name: String!
     weapons: [String]
     maxStats: MaxStats!
-    skill: [String],   
+    skill: [String]   
     promoted: Boolean!
     promotesInto: String
     promotionGains: PromotionGains
