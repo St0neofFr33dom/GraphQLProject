@@ -14,7 +14,7 @@ const startServer = async function(){
     server.applyMiddleware({ app });
     
     await mongoose.connect(
-        "mongodb://localhost/fe9",
+        process.env.CONNECTION_STRING,
         () => {
           console.log("Connected to database");
         },

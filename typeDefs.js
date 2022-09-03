@@ -3,7 +3,7 @@ import {gql} from "apollo-server-express";
 export const typeDefs = gql`
 
 type Query{
-    characters: [Character!]!
+    characters(input: CharacterInputs): [Character!]!
     getSkills(input: SkillInputs): [Skill!]!
     getWeapons(input: WeaponInputs): [Weapon!]!
     getStaves(input: StaffInputs): [Staff!]!
@@ -28,6 +28,20 @@ type Stats{
     weight: Int
 }
 
+input StatInputs{
+    hitPoints: Int
+    strength: Int
+    magic: Int
+    skill: Int
+    speed: Int
+    luck: Int
+    defense: Int
+    resistance: Int
+    movement: Int
+    constitution: Int
+    weight: Int
+}
+
 type Growths{
     hitPoints: Int!
     strength: Int!
@@ -39,6 +53,17 @@ type Growths{
     resistance: Int!
 }
 
+input GrowthInputs{
+    hitPoints: Int
+    strength: Int
+    magic: Int
+    skill: Int
+    speed: Int
+    luck: Int
+    defense: Int
+    resistance: Int
+}
+
 type Rank{
     weapon: String
     rank: String
@@ -47,19 +72,54 @@ type Rank{
 type Character{
     id: ID!
     name: String!
-    class: String!
+    class: Class!
     level: Int!
-    baseStats: Stats!
+    baseStats(input: StatInputs): Stats
     growthRates: Growths!
     weaponRanks: [Rank]!
-    skills: [String]
-    affinity: String!
-    supportPartners: [String]
+    skills: [Skill]!
+    equipment: [Top]!
+    items: [Bottom]!
+    affinity: Affinity!
+    supportPartners: [Support]!
+    critBonusPartners: [CritSupport]!
+    critNegation: [String]!
+}
+
+input CharacterInputs{
+    id: ID
+    name: String
+    level: Int
+    baseStats: StatInputs
+    growthRates: GrowthInputs
+    supportPartners: SupportInputs
+}
+
+type Support{
+    name: String
+    affinity: String
+    chapters: Chapter
+}
+
+input SupportInputs{
+    name:String
+    affinity: String
+}
+
+type Chapter{
+    C: Int
+    B: Int
+    A: Int
+}
+
+type CritSupport{
+    name: String
+    critBonus: Int
 }
 
 type Skill{
     id: ID!
-    name: String!
+    name: String
     description: String!
     activationRequirements: String
     capacity: Int!
@@ -128,6 +188,9 @@ input StaffInputs{
     experience: Int
 }
 
+union Top = Weapon | Staff
+
+
 type Item{
     id: ID!
     name: String!
@@ -156,6 +219,8 @@ input AccessoryInputs{
     name: String
     price: Int
 }
+
+union Bottom = Item | Accessory
 
 type MaxStats{
     hitPoints: Int
@@ -186,11 +251,11 @@ type Beorc{
     name: String!
     weapons: [String]
     maxStats: MaxStats!
-    skill: [String],   
+    skill: [String]   
     promoted: Boolean!
     promotesInto: String
     promotionGains: PromotionGains
-    occultSkill: String
+    occultSkill: Skill
     notes: String
 }
 
@@ -201,7 +266,6 @@ input BeorcInputs{
     skill: String
     promoted: Boolean
     promotesInto: String
-    occultSkill: String
 }
 
 type TransformationBonuses{
@@ -219,16 +283,22 @@ type TransformationBonuses{
 type Laguz{
     id: ID!
     name: String!
+    weapon: Weapon
     maxStats: MaxStats!
     transformationBonuses: TransformationBonuses!
-    occultSkill: String!
+    occultSkill: Skill
+    
 }
 
 input LaguzInputs{
     id: ID
     name: String
-    occultSkill: String
 }
+
+union Class = Beorc | Laguz
+
+    
+
 
 type Affinity{
     name: String!

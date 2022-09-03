@@ -11,7 +11,7 @@ import {Character, Skill, Staff, Weapon, Item, Accessory, Affinity, Beorc, Laguz
 
 
 mongoose.connect(
-  "mongodb://localhost/fe9",
+  process.env.CONNECTION_STRING,
   () => {
     console.log("Connected to database");
   },
@@ -32,10 +32,11 @@ async function replaceIDs(){
   console.log(results)
 }
 
-// await replaceIDs()
-// const unit = new Character(characters[0])
+// const entry = new Laguz(laguzClasses[0])
+// await entry.save()
 
-// await unit.save()
+
+// await replaceIDs()
 
 await populateTable(characters, Character)
 await populateTable(skills, Skill)
@@ -52,4 +53,5 @@ await populateTable(items, Item)
  await populateTable(affinities, Affinity)
  await populateTable(beorcClasses, Beorc)
  await populateTable(laguzClasses, Laguz)
- 
+
+
