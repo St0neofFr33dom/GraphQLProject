@@ -3,7 +3,7 @@ import {gql} from "apollo-server-express";
 export const typeDefs = gql`
 
 type Query{
-    characters: [Character!]!
+    characters(input: CharacterInputs): [Character!]!
     getSkills(input: SkillInputs): [Skill!]!
     getWeapons(input: WeaponInputs): [Weapon!]!
     getStaves(input: StaffInputs): [Staff!]!
@@ -28,6 +28,20 @@ type Stats{
     weight: Int
 }
 
+input StatInputs{
+    hitPoints: Int
+    strength: Int
+    magic: Int
+    skill: Int
+    speed: Int
+    luck: Int
+    defense: Int
+    resistance: Int
+    movement: Int
+    constitution: Int
+    weight: Int
+}
+
 type Growths{
     hitPoints: Int!
     strength: Int!
@@ -37,6 +51,17 @@ type Growths{
     luck: Int!
     defense: Int!
     resistance: Int!
+}
+
+input GrowthInputs{
+    hitPoints: Int
+    strength: Int
+    magic: Int
+    skill: Int
+    speed: Int
+    luck: Int
+    defense: Int
+    resistance: Int
 }
 
 type Rank{
@@ -49,7 +74,7 @@ type Character{
     name: String!
     class: Class!
     level: Int!
-    baseStats: Stats!
+    baseStats(input: StatInputs): Stats
     growthRates: Growths!
     weaponRanks: [Rank]!
     skills: [Skill]!
@@ -61,10 +86,24 @@ type Character{
     critNegation: [String]!
 }
 
+input CharacterInputs{
+    id: ID
+    name: String
+    level: Int
+    baseStats: StatInputs
+    growthRates: GrowthInputs
+    supportPartners: SupportInputs
+}
+
 type Support{
     name: String
     affinity: String
     chapters: Chapter
+}
+
+input SupportInputs{
+    name:String
+    affinity: String
 }
 
 type Chapter{
