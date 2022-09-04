@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import logger from "morgan"
 import cookieParser from "cookie-parser";
-import helmet from "helmet";
+import cors from "cors"
 
 
 
@@ -23,7 +23,6 @@ const startServer = async function(){
     app.use(cors())
     app.use(express.json())
     app.use(express.urlencoded({ extended: false }));
-    app.use(helmet())
     app.use(cookieParser())
     app.use(express.static(path.join(__dirname, "public")));
 
@@ -42,7 +41,7 @@ const startServer = async function(){
       );
       
       app.use("/",function(req,res){
-        res.render("index",{title:"FE9 API"})
+        res.sendFile("index.html",{root:__dirname})
       })
 
     app.listen({ port: 4000 }, () =>
