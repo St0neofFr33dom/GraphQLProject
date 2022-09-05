@@ -1,0 +1,15 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background-color: black;
+    color: white;
+    text-align: center;
+    max-width: 1080px;
+}
+
+p{
+    width: 80%
+}

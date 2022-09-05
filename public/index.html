@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FE9 API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <img src="./Fire-Emblem-Title.jpg"/>
+        <h1>Fire Emblem: Path of Radiance API</h1>
+        <h2>Introduction</h2>
+        <p>This is a fan-made project, all the info was gathered by the Fire Emblem community.</p>
+        <p>This an API that you can make requests to, to get data/stats of the main Characters, the classes, weapons, items and affinities. </p>
+        <p>Fire Emblem games have a lot of data, and rather than gathering it yourself for your own websites, you can request data to this API, and because it is GraphqQL format you can request only the data that you want in a single query</p>
+        <h2>Instructions</h2>
+        <p>If you got to http://____/graphql, there is a dashboard that you can simulate queries</p>
+        <p>If you want to make requests to it using fetch or postman, you make a post request to http://____/graphql, the request's body will look consist of a json object, with only on key needed "query", then as the value between quotations you make the request the same way you would do on the dashboard</p>
+        <h4>Example: You want to get a list of all the characters, getting their name, level and base stats</h4>
+        <code>{
+            "query": "query {characters{name, level, baseStats{hitPoints,strength,magic,skill,speed,luck,defense,resistance}}}"
+        }</code>
+        <h2>Documentation</h2>
+        <p>At the moment, only queries are allowed, no mutations</p>
+        <h3>Query Fields</h3>
+        <ul>
+            <li>characters</li>
+            <li>getSkills</li>
+            <li>getWeapons</li>
+            <li>getStaves</li>
+            <li>getItems</li>
+            <li>getAccessories</li>
+            <li>getBeorcClasses</li>
+            <li>getLaguzClasses</li>
+            <li>getAffinities</li>
+        </ul>
+    </main>
+</body>
+</html>

@@ -8,6 +8,7 @@ This is a project to teach myself how to build a GraphQL API from scratch.
 This API returns info and statistics from Fire Emblem: Path of Radiance,
 a strategy RPG game released on the gamecube in 2005
 
+All the data is stored in a mongoDB server, the db.js
 <br/>
 
 ---

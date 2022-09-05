@@ -40,9 +40,6 @@ const startServer = async function(){
       (e) => console.error(e)
       );
       
-      app.use("/",function(req,res){
-        res.sendFile("index.html",{root:__dirname})
-      })
 
     app.listen({ port: 4000 }, () =>
       console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
