@@ -36,7 +36,7 @@ export const resolvers = {
       }
     },
     Query: {
-      async characters(_, {input}) {
+      async getCharacters(_, {input}) {
         if (input){
           let entries = []
           let firstFields = Object.keys(input)
@@ -62,6 +62,42 @@ export const resolvers = {
         return result
         }
         let result = await Character.find(input)
+        return result
+      },
+      async filterCharacters(_, {input}){
+        console.log(input)
+        let entries = []
+          let firstFields = Object.keys(input)
+          for (let i = 0; i < firstFields.length; i++){
+            let nestedObject = input[firstFields[i]]
+            console.log(nestedObject)
+            let secondFields = Object.keys(nestedObject)
+            for (let j = 0; j < secondFields.length; j++){
+              let secondObject = nestedObject[secondFields[i]]
+              console.log(secondObject)
+              if (typeof(secondObject) !== 'object'){
+                let firstKey = `${firstFields[i]}`
+                let secondKey = `$${secondFields[j]}`
+                let value = nestedObject[secondFields[j]]
+                let entry = {[firstKey]:{[secondKey]:value}}
+                entries.push(entry)
+                continue
+              }
+              let thirdFields = Object.keys(secondObject)
+              for (let k = 0; k < thirdFields.length; k++){
+                let firstKey = `${firstFields[i]}.${secondFields[j]}`
+                let secondKey = `$${thirdFields[k]}`
+                let value = secondObject[thirdFields[k]]
+                let entry = {[firstKey]:{[secondKey]:value}}
+                entries.push(entry)
+              }
+                }
+            
+          }
+          console.log(entries)
+        let fetch  = entries.reduce((r, o) => Object.assign(r, o), {});
+        console.log(fetch)
+        let result = await Character.find(fetch)
         return result
       },
       getSkills: async (_, arg) => await Skill.find(arg.input),

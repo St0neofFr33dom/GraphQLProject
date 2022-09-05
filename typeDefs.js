@@ -3,7 +3,8 @@ import {gql} from "apollo-server-express";
 export const typeDefs = gql`
 
 type Query{
-    characters(input: CharacterInputs): [Character!]!
+    getCharacters(input: CharacterInputs): [Character!]!
+    filterCharacters(input: CharacterStatsInputs!): [Character]!
     getSkills(input: SkillInputs): [Skill!]!
     getWeapons(input: WeaponInputs): [Weapon!]!
     getStaves(input: StaffInputs): [Staff!]!
@@ -29,17 +30,17 @@ type Stats{
 }
 
 input StatInputs{
-    hitPoints: Int
-    strength: Int
-    magic: Int
-    skill: Int
-    speed: Int
-    luck: Int
-    defense: Int
-    resistance: Int
-    movement: Int
-    constitution: Int
-    weight: Int
+    hitPoints: NumberOperations
+    strength: NumberOperations
+    magic: NumberOperations
+    skill: NumberOperations
+    speed: NumberOperations
+    luck: NumberOperations
+    defense: NumberOperations
+    resistance: NumberOperations
+    movement: NumberOperations
+    constitution: NumberOperations
+    weight: NumberOperations
 }
 
 type Growths{
@@ -54,14 +55,14 @@ type Growths{
 }
 
 input GrowthInputs{
-    hitPoints: Int
-    strength: Int
-    magic: Int
-    skill: Int
-    speed: Int
-    luck: Int
-    defense: Int
-    resistance: Int
+    hitPoints: NumberOperations
+    strength: NumberOperations
+    magic: NumberOperations
+    skill: NumberOperations
+    speed: NumberOperations
+    luck: NumberOperations
+    defense: NumberOperations
+    resistance: NumberOperations
 }
 
 type Rank{
@@ -74,7 +75,7 @@ type Character{
     name: String!
     class: Class!
     level: Int!
-    baseStats(input: StatInputs): Stats
+    baseStats: Stats
     growthRates: Growths!
     weaponRanks: [Rank]!
     skills: [Skill]!
@@ -86,6 +87,7 @@ type Character{
     critNegation: [String]!
 }
 
+
 input CharacterInputs{
     id: ID
     name: String
@@ -94,6 +96,21 @@ input CharacterInputs{
     growthRates: GrowthInputs
     supportPartners: SupportInputs
 }
+
+input CharacterStatsInputs{
+    level: NumberOperations
+    baseStats: StatInputs
+    growthRates: GrowthInputs
+}
+
+input NumberOperations{
+    eq: Int
+    gt: Int
+    gte: Int
+    lt: Int
+    lte: Int
+}
+
 
 type Support{
     name: String
