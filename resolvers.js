@@ -1,7 +1,73 @@
 import { Character, Skill, Weapon, Staff, Item, Accessory, Beorc, Laguz, Affinity } from "./models/fe9Schemas.js";
+import { GraphQLScalarType } from "graphql";
 
+
+function parseApolloToMongDB(input){
+  let entries = []
+  let firstFields = Object.keys(input)
+  for (let i = 0; i < firstFields.length; i++){
+    let nestedObject = input[firstFields[i]]
+    let secondFields = Object.keys(nestedObject)
+    for (let j = 0; j < secondFields.length; j++){
+      let secondObject = nestedObject[secondFields[j]]
+      if (typeof(secondObject) !== 'object'){
+        let firstKey = `${firstFields[i]}`
+        let secondKey = `$${secondFields[j]}`
+        let value = nestedObject[secondFields[j]]
+        let entry = {[firstKey]:{[secondKey]:value}}
+        entries.push(entry)
+        continue
+      }
+      let thirdFields = Object.keys(secondObject)
+      for (let k = 0; k < thirdFields.length; k++){
+        let firstKey = `${firstFields[i]}.${secondFields[j]}`
+        let secondKey = `$${thirdFields[k]}`
+        let value = secondObject[thirdFields[k]]
+        let entry = {[firstKey]:{[secondKey]:value}}
+        entries.push(entry)
+      }
+        } 
+  }
+  let fetch  = entries.reduce((first, second) =>{
+  let firstKey = Object.keys(first)[0]
+  let secondKey = Object.keys(second)[0]
+  if (firstKey === secondKey){
+    let firstValue = Object.values(first)[0]
+    let secondValue = Object.values(second)[0]
+    let newValue = Object.assign(firstValue,secondValue)
+    let result = {[firstKey]:newValue}
+    return result
+  }
+  let result = Object.assign(first, second)
+  return result
+} );
+return fetch
+}
+
+async function fetchData(Schema, input){
+  if (input){
+    let fetch = parseApolloToMongDB(input)
+    let result = await Schema.find(fetch)
+    return result
+  }
+    let result = await Schema.find()
+    return result
+}
 
 export const resolvers = {
+    Any: new GraphQLScalarType({
+      name: "Any",
+      description: "Literally anything",
+      serialize(value) {
+        return value;
+      },
+      parseValue(value) {
+        return value;
+      },
+      parseLiteral(ast) {
+        return ast.value;
+      }
+    }),
     Class:{
       __resolveType(obj) {
         if(obj.race==="Beorc"){
@@ -37,84 +103,32 @@ export const resolvers = {
     },
     Query: {
       async getCharacters(_, {input}) {
-        if (input){
-          let entries = []
-          let firstFields = Object.keys(input)
-          for (let i = 0; i < firstFields.length; i++){
-            let nestedObject = input[firstFields[i]]
-            if (typeof(nestedObject) !== 'object'){
-              let key = `${firstFields[i]}`
-              let value = input[firstFields[i]]
-              let entry = {[key]:value}
-              entries.push(entry)
-              continue
-            }
-            let secondFields = Object.keys(nestedObject)
-            for (let j = 0; j < secondFields.length; j++){
-              let value = input[firstFields[i]][secondFields[j]];
-              let key = `${firstFields[i]}.${secondFields[j]}`
-              let entry = {[key]:value}
-              entries.push(entry)
-            }
-          }
-        let fetch  = entries.reduce((r, o) => Object.assign(r, o), {});
-        let result = await Character.find(fetch)
-        return result
-        }
-        let result = await Character.find(input)
-        return result
+        return await fetchData(Character, input)
+    },
+      async getSkills (_, {input}) { 
+        return await fetchData(Skill, input)
       },
-      async filterCharacters(_, {input}){
-        let entries = []
-          let firstFields = Object.keys(input)
-          for (let i = 0; i < firstFields.length; i++){
-            let nestedObject = input[firstFields[i]]
-            let secondFields = Object.keys(nestedObject)
-            for (let j = 0; j < secondFields.length; j++){
-              let secondObject = nestedObject[secondFields[j]]
-              if (typeof(secondObject) !== 'object'){
-                let firstKey = `${firstFields[i]}`
-                let secondKey = `$${secondFields[j]}`
-                let value = nestedObject[secondFields[j]]
-                let entry = {[firstKey]:{[secondKey]:value}}
-                entries.push(entry)
-                continue
-              }
-              let thirdFields = Object.keys(secondObject)
-              for (let k = 0; k < thirdFields.length; k++){
-                let firstKey = `${firstFields[i]}.${secondFields[j]}`
-                let secondKey = `$${thirdFields[k]}`
-                let value = secondObject[thirdFields[k]]
-                let entry = {[firstKey]:{[secondKey]:value}}
-                entries.push(entry)
-              }
-                }
-            
-          }
-        let fetch  = entries.reduce((first, second) =>{
-          let firstKey = Object.keys(first)[0]
-          let secondKey = Object.keys(second)[0]
-          if (firstKey === secondKey){
-            let firstValue = Object.values(first)[0]
-            let secondValue = Object.values(second)[0]
-            let newValue = Object.assign(firstValue,secondValue)
-            let result = {[firstKey]:newValue}
-            return result
-          }
-          let result = Object.assign(first, second)
-          return result
-        } );
-        let result = await Character.find(fetch)
-        return result
+      async getWeapons (_, {input}) { 
+        return await fetchData(Weapon, input)
       },
-      getSkills: async (_, arg) => await Skill.find(arg.input),
-      getWeapons: async (_, arg) => await Weapon.find(arg.input),
-      getStaves: async (_, arg) => await Staff.find(arg.input),
-      getItems: async (_, arg) => await Item.find(arg.input),
-      getAccessories: async (_, arg) => await Accessory.find(arg.input),
-      getBeorcClasses: async (_, arg) => await Beorc.find(arg.input),
-      getLaguzClasses: async (_, arg) => await Laguz.find(arg.input),
-      getAffinities: async (_, arg) => await Affinity.find(arg.input),
+      async getStaves(_, {input}){
+        return await fetchData(Staff, input)
+      },
+      async getItems (_, {input}) {
+        return await fetchData(Item, input)
+      },
+      async getAccessories (_, {input}) {
+        return await fetchData(Accessory, input)
+      },
+      async getBeorcClasses (_, {input}) {
+        return await fetchData(Beorc, input)
+      },
+      async getLaguzClasses (_, {input}) {
+        return await fetchData(Laguz, input)
+      },
+      async getAffinities (_, {input}) {
+        return await fetchData(Affinity, input)
+      },
       },
     // Character: {
     //   baseStats(character,{input}){

@@ -4,7 +4,6 @@ export const typeDefs = gql`
 
 type Query{
     getCharacters(input: CharacterInputs): [Character!]!
-    filterCharacters(input: CharacterStatsInputs!): [Character]!
     getSkills(input: SkillInputs): [Skill!]!
     getWeapons(input: WeaponInputs): [Weapon!]!
     getStaves(input: StaffInputs): [Staff!]!
@@ -14,6 +13,7 @@ type Query{
     getLaguzClasses(input: LaguzInputs): [Laguz!]!
     getAffinities(input: AffinityInputs): [Affinity!]!
 }
+
 
 type Stats{
     hitPoints: Int!
@@ -30,17 +30,17 @@ type Stats{
 }
 
 input StatInputs{
-    hitPoints: NumberOperations
-    strength: NumberOperations
-    magic: NumberOperations
-    skill: NumberOperations
-    speed: NumberOperations
-    luck: NumberOperations
-    defense: NumberOperations
-    resistance: NumberOperations
-    movement: NumberOperations
-    constitution: NumberOperations
-    weight: NumberOperations
+    hitPoints: FilterOperations
+    strength: FilterOperations
+    magic: FilterOperations
+    skill: FilterOperations
+    speed: FilterOperations
+    luck: FilterOperations
+    defense: FilterOperations
+    resistance: FilterOperations
+    movement: FilterOperations
+    constitution: FilterOperations
+    weight: FilterOperations
 }
 
 type Growths{
@@ -55,14 +55,14 @@ type Growths{
 }
 
 input GrowthInputs{
-    hitPoints: NumberOperations
-    strength: NumberOperations
-    magic: NumberOperations
-    skill: NumberOperations
-    speed: NumberOperations
-    luck: NumberOperations
-    defense: NumberOperations
-    resistance: NumberOperations
+    hitPoints: FilterOperations
+    strength: FilterOperations
+    magic: FilterOperations
+    skill: FilterOperations
+    speed: FilterOperations
+    luck: FilterOperations
+    defense: FilterOperations
+    resistance: FilterOperations
 }
 
 type Rank{
@@ -89,22 +89,20 @@ type Character{
 
 
 input CharacterInputs{
-    id: ID
-    name: String
-    level: Int
+    # id: ID
+    name: FilterOperations
+    level: FilterOperations
     baseStats: StatInputs
     growthRates: GrowthInputs
     supportPartners: SupportInputs
 }
 
-input CharacterStatsInputs{
-    level: NumberOperations
-    baseStats: StatInputs
-    growthRates: GrowthInputs
-}
 
-input NumberOperations{
-    eq: Int
+scalar Any
+
+input FilterOperations{
+    eq: Any
+    ne: Any
     gt: Int
     gte: Int
     lt: Int
@@ -119,8 +117,8 @@ type Support{
 }
 
 input SupportInputs{
-    name:String
-    affinity: String
+    name: FilterOperations
+    affinity: FilterOperations
 }
 
 type Chapter{
@@ -143,9 +141,9 @@ type Skill{
 }
 
 input SkillInputs{
-    id: ID
-    name: String
-    capacity: Int
+    # id: ID
+    name: FilterOperations
+    capacity: FilterOperations
 }
 
 type Weapon{
@@ -165,17 +163,17 @@ type Weapon{
 }
 
 input WeaponInputs{
-    id: ID
-    name: String
-    type: String
-    rank: String
-    might: Int
-    hitRate: Int
-    criticalRate: Int
-    weight: Int
-    range: String
-    uses: Int
-    price: Int
+    # id: ID
+    name: FilterOperations
+    type: FilterOperations
+    rank: FilterOperations
+    might: FilterOperations
+    hitRate: FilterOperations
+    criticalRate: FilterOperations
+    weight: FilterOperations
+    range: FilterOperations
+    uses: FilterOperations
+    price: FilterOperations
 }
 
 type Staff{
@@ -194,15 +192,15 @@ type Staff{
 }
 
 input StaffInputs{
-    id: ID
-    name: String
-    rank: String
-    weight: Int
-    hitRate: Int
-    uses: Int
-    price: Int
-    weaponExperience: Int
-    experience: Int
+    # id: ID
+    name: FilterOperations
+    rank: FilterOperations
+    weight: FilterOperations
+    hitRate: FilterOperations
+    uses: FilterOperations
+    price: FilterOperations
+    weaponExperience: FilterOperations
+    experience: FilterOperations
 }
 
 union Top = Weapon | Staff
@@ -217,10 +215,10 @@ type Item{
 }
 
 input ItemInputs{
-    id: ID
-    name: String
-    uses: Int
-    price: Int
+    # id: ID
+    name: FilterOperations
+    uses: FilterOperations
+    price: FilterOperations
 }
 
 type Accessory{
@@ -232,9 +230,9 @@ type Accessory{
 }
 
 input AccessoryInputs{
-    id: ID
-    name: String
-    price: Int
+    # id: ID
+    name: FilterOperations
+    price: FilterOperations
 }
 
 union Bottom = Item | Accessory
@@ -277,12 +275,11 @@ type Beorc{
 }
 
 input BeorcInputs{
-    id: ID
-    name: String
-    weapons: String
-    skill: String
-    promoted: Boolean
-    promotesInto: String
+    # id: ID
+    name: FilterOperations
+    weapons: FilterOperations
+    skill: FilterOperations
+    promoted: FilterOperations
 }
 
 type TransformationBonuses{
@@ -308,8 +305,10 @@ type Laguz{
 }
 
 input LaguzInputs{
-    id: ID
-    name: String
+    # id: ID
+    name: FilterOperations
+    weapon: WeaponInputs
+    maxStats: StatInputs
 }
 
 union Class = Beorc | Laguz
@@ -326,11 +325,11 @@ type Affinity{
 }
 
 input AffinityInputs{
-    name: String
-    accuracy: Float
-    avoid: Float
-    attack: Float
-    defense: Float
+    name: FilterOperations
+    accuracy: FilterOperations
+    avoid: FilterOperations
+    attack: FilterOperations
+    defense: FilterOperations
 }
 
 `
