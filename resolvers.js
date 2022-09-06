@@ -65,16 +65,13 @@ export const resolvers = {
         return result
       },
       async filterCharacters(_, {input}){
-        console.log(input)
         let entries = []
           let firstFields = Object.keys(input)
           for (let i = 0; i < firstFields.length; i++){
             let nestedObject = input[firstFields[i]]
-            console.log(nestedObject)
             let secondFields = Object.keys(nestedObject)
             for (let j = 0; j < secondFields.length; j++){
-              let secondObject = nestedObject[secondFields[i]]
-              console.log(secondObject)
+              let secondObject = nestedObject[secondFields[j]]
               if (typeof(secondObject) !== 'object'){
                 let firstKey = `${firstFields[i]}`
                 let secondKey = `$${secondFields[j]}`
@@ -94,9 +91,19 @@ export const resolvers = {
                 }
             
           }
-          console.log(entries)
-        let fetch  = entries.reduce((r, o) => Object.assign(r, o), {});
-        console.log(fetch)
+        let fetch  = entries.reduce((first, second) =>{
+          let firstKey = Object.keys(first)[0]
+          let secondKey = Object.keys(second)[0]
+          if (firstKey === secondKey){
+            let firstValue = Object.values(first)[0]
+            let secondValue = Object.values(second)[0]
+            let newValue = Object.assign(firstValue,secondValue)
+            let result = {[firstKey]:newValue}
+            return result
+          }
+          let result = Object.assign(first, second)
+          return result
+        } );
         let result = await Character.find(fetch)
         return result
       },
