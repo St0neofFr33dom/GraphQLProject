@@ -103,7 +103,10 @@ export const resolvers = {
     },
     Query: {
       async getCharacters(_, {input}) {
-        return await fetchData(Character, input)
+        let fetch = await fetchData(Character, input)
+        let result = fetch.map((obj)=> {return {...obj, input}})
+        console.log(result)
+        return result
     },
       async getSkills (_, {input}) { 
         return await fetchData(Skill, input)
@@ -130,10 +133,27 @@ export const resolvers = {
         return await fetchData(Affinity, input)
       },
       },
-    // Character: {
-    //   baseStats(character,{input}){
-    //     console.log(input)
-    //     return character.baseStats
-    //   }
-    // }
+    Character: {
+      async skills(character,arg){
+        // console.log(character.input)
+        // if(input){
+        //   let fetch = parseApolloToMongDB(input)
+        //   console.log(fetch)
+        // }
+        const skillNames = character.skillNames
+        let result = await Skill.find({name:skillNames[0]})
+        return result
+        // return await fetchData(Skill,input)
+      },
+      async class(character,{input}){
+        const className = character.className
+        let result = await Skill.find({name:skillNames[0]})
+        return result
+      },
+      async apolloSkill(character,{input}){
+        const skillNames = character.skillNames
+        let result = await Skill.find({name:skillNames[0]})
+        return result
+      },
+    }
   };

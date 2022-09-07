@@ -49,65 +49,65 @@ const characterSchema = new Schema(
     critBonusPartners: [{ name: String, critBonus: Number}],
     critNegation: [String],
   },
-  {
-    virtuals: {
-      affinity: {
-        async get() {
-          let entry = await Affinity.findOne({ name: this.affinityName });
-          return entry;
-        },
-      },
-      class: {
-        async get() {
-          let entry = await Beorc.findOne({ name: this.className });
-          if (!entry) {
-            entry = await Laguz.findOne({ name: this.className });
-          }
-          return entry;
-        },
-      },
-      skills: {
-        async get() {
-          let list = [];
-          for (let i = 0; i < this.skillNames.length; i++) {
-            let entry = await Skill.findOne({ name: this.skillNames[i] });
-            list.push(entry);
-          }
-          return list;
-        },
-      },
-      equipment: {
-        async get() {
-          let list = [];
-          for (let i = 0; i < this.topInventory.length; i++) {
-            let entry = await Weapon.findOne({ name: this.topInventory[i] });
-            if (!entry) {
-              entry = await Staff.findOne({ name: this.topInventory[i] });
-            }
-            list.push(entry);
-          }
-          return list;
-        },
-      },
-      items: {
-        async get() {
-          let list = [];
-          for (let i = 0; i < this.bottomInventory.length; i++) {
-            let entry = await Item.findOne({ name: this.bottomInventory[i] });
-            if (!entry) {
-              entry = await Accessory.findOne({
-                name: this.bottomInventory[i],
-              });
-            }
-            list.push(entry);
-          }
-          return list;
-        },
-      },
-    },
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  // {
+  //   virtuals: {
+  //     affinity: {
+  //       async get() {
+  //         let entry = await Affinity.findOne({ name: this.affinityName });
+  //         return entry;
+  //       },
+  //     },
+  //     class: {
+  //       async get() {
+  //         let entry = await Beorc.findOne({ name: this.className });
+  //         if (!entry) {
+  //           entry = await Laguz.findOne({ name: this.className });
+  //         }
+  //         return entry;
+  //       },
+  //     },
+  //     skills: {
+  //       async get() {
+  //         let list = [];
+  //         for (let i = 0; i < this.skillNames.length; i++) {
+  //           let entry = await Skill.findOne({ name: this.skillNames[i] });
+  //           list.push(entry);
+  //         }
+  //         return list;
+  //       },
+  //     },
+  //     equipment: {
+  //       async get() {
+  //         let list = [];
+  //         for (let i = 0; i < this.topInventory.length; i++) {
+  //           let entry = await Weapon.findOne({ name: this.topInventory[i] });
+  //           if (!entry) {
+  //             entry = await Staff.findOne({ name: this.topInventory[i] });
+  //           }
+  //           list.push(entry);
+  //         }
+  //         return list;
+  //       },
+  //     },
+  //     items: {
+  //       async get() {
+  //         let list = [];
+  //         for (let i = 0; i < this.bottomInventory.length; i++) {
+  //           let entry = await Item.findOne({ name: this.bottomInventory[i] });
+  //           if (!entry) {
+  //             entry = await Accessory.findOne({
+  //               name: this.bottomInventory[i],
+  //             });
+  //           }
+  //           list.push(entry);
+  //         }
+  //         return list;
+  //       },
+  //     },
+  //   },
+  //   toJSON: { virtuals: true },
+  //   toObject: { virtuals: true },
+  // }
 );
 
 const weaponsSchema = new Schema({
@@ -188,24 +188,24 @@ const laguzSchema = new Schema(
     },
     skillName: String,
   },
-  {
-    virtuals: {
-      occultSkill: {
-        async get() {
-          let entry = await Skill.findOne({ name: this.skillName });
-          return entry;
-        },
-      },
-      weapon: {
-        async get() {
-          let entry = await Weapon.findOne({ name: this.weaponName });
-          return entry;
-        },
-      },
-    },
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  // {
+  //   virtuals: {
+  //     occultSkill: {
+  //       async get() {
+  //         let entry = await Skill.findOne({ name: this.skillName });
+  //         return entry;
+  //       },
+  //     },
+  //     weapon: {
+  //       async get() {
+  //         let entry = await Weapon.findOne({ name: this.weaponName });
+  //         return entry;
+  //       },
+  //     },
+  //   },
+  //   toJSON: { virtuals: true },
+  //   toObject: { virtuals: true },
+  // }
 );
 
 const beorcSchema = new Schema(
@@ -241,18 +241,18 @@ const beorcSchema = new Schema(
     skillName: String,
     notes: String,
   },
-  {
-    virtuals: {
-      occultSkill: {
-        async get() {
-          let entry = await Skill.findOne({ name: this.skillName });
-          return entry;
-        },
-      },
-    },
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  // {
+  //   virtuals: {
+  //     occultSkill: {
+  //       async get() {
+  //         let entry = await Skill.findOne({ name: this.skillName });
+  //         return entry;
+  //       },
+  //     },
+  //   },
+  //   toJSON: { virtuals: true },
+  //   toObject: { virtuals: true },
+  // }
 );
 
 const affinitySchema = new Schema({

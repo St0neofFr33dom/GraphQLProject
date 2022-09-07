@@ -85,6 +85,7 @@ type Character{
     supportPartners: [Support]!
     critBonusPartners: [CritSupport]!
     critNegation: [String]!
+    apolloSkill: [Skill]!
 }
 
 
@@ -95,6 +96,7 @@ input CharacterInputs{
     baseStats: StatInputs
     growthRates: GrowthInputs
     supportPartners: SupportInputs
+    skills: SkillInputs
 }
 
 
