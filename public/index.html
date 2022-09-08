@@ -16,17 +16,31 @@
         <p>This an API that you can make requests to, to get data/stats of the main Characters, the classes, weapons, items and affinities. </p>
         <p>Fire Emblem games have a lot of data, and rather than gathering it yourself for your own websites, you can request data to this API, and because it is GraphqQL format you can request only the data that you want in a single query</p>
         <h2>Instructions</h2>
-        <p>If you got to http://____/graphql, there is a dashboard that you can simulate queries</p>
-        <p>If you want to make requests to it using fetch or postman, you make a post request to http://____/graphql, the request's body will look consist of a json object, with only on key needed "query", then as the value between quotations you make the request the same way you would do on the dashboard</p>
+        <p>If you got to http://____/graphql, there is a dashboard that you can simulate queries, it explains all the fields, nested included</p>
+        <p>If you want to make requests to it using fetch or axios, you make a post request to http://____/graphql, the request's body will look consist of a json object, with only on key needed "query", then as the value between quotations you make the request the same way you would do on the dashboard</p>
         <h4>Example: You want to get a list of all the characters, getting their name, level and base stats</h4>
         <code>{
-            "query": "query {characters{name, level, baseStats{hitPoints,strength,magic,skill,speed,luck,defense,resistance}}}"
+            "query": "query {getCharacters{name, level, baseStats{hitPoints,strength,magic,skill,speed,luck,defense,resistance}}}"
         }</code>
-        <h2>Documentation</h2>
-        <p>At the moment, only queries are allowed, no mutations</p>
+        <p>You can also filter the results you get by inputting arguements in the query. </p>
+        <p>Example: You want to recieve only characters that are level 10 or above, you also want to find the description for the skill Vantage</p>
+        <code>
+            {
+                "query":"query{getCharacters(input:{level:{gte:10}}){name,level},getSkills(input:{name:{eq:Vantage}}){name,description}}"
+            }
+        </code>
+        <p>Or you can use a variables object in the query to dynamically input variables in the query</p>
+        <code>
+            {
+                "query":"query($input:CharacterInputs,$input2:SkillInputs){getCharacters(input:$input){name,level},getSkills(input:$input2){name,description}}",
+                "variables":{"input":{"level":{"gte":10}},"input2":{"name":{"eq":"Vantage"}}}
+            }
+        </code>
+        <!-- <h2>Documentation</h2>
+        <p>At this moment, only queries are allowed, no mutations</p>
         <h3>Query Fields</h3>
         <ul>
-            <li>characters</li>
+            <li>getCharacters</li>
             <li>getSkills</li>
             <li>getWeapons</li>
             <li>getStaves</li>
@@ -35,7 +49,7 @@
             <li>getBeorcClasses</li>
             <li>getLaguzClasses</li>
             <li>getAffinities</li>
-        </ul>
+        </ul> -->
     </main>
 </body>
 </html>
