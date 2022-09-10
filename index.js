@@ -15,13 +15,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const startServer = async function(){
-
-  console.log("Checkpoint 1")
     
     const server = new ApolloServer({ typeDefs, resolvers });
     const app = express();
     
-    console.log("Checkpoint 2")
     // app.use(logger("dev"))
     app.use(cors())
     app.use(express.json())
@@ -29,11 +26,8 @@ const startServer = async function(){
     app.use(cookieParser())
     app.use(express.static(path.join(__dirname, "public")));
 
-    console.log("Checkpoint 3")
     await server.start()
     server.applyMiddleware({ app });
-    
-    console.log("Checkpoint 4")
 
     await mongoose.connect(
       process.env.CONNECTION_STRING,
@@ -43,7 +37,6 @@ const startServer = async function(){
       (e) => console.error(e)
       );
       
-      console.log("Checkpoint 5")
     app.listen({ port: process.env.PORT || 4000 }, () =>
       console.log(`🚀 Server ready`)
     );
