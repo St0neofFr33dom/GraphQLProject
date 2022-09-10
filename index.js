@@ -8,11 +8,23 @@ import path, { dirname } from "path";
 import logger from "morgan"
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import rateLimit from 'express-rate-limit'
+
+const apiLimiter = rateLimit({
+	windowMs:  60000, // 15 minutes
+	max: 60, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Apply the rate limiting middleware to API calls only
 
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+
 
 const startServer = async function(){
     
@@ -20,6 +32,7 @@ const startServer = async function(){
     const app = express();
     
     // app.use(logger("dev"))
+    app.use("/graphql",apiLimiter)
     app.use(cors())
     app.use(express.json())
     app.use(express.urlencoded({ extended: false }));

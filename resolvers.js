@@ -45,7 +45,6 @@ return fetch
 }
 
 async function fetchData(Schema, input){
-  console.log("Checkpoint 6")
   if (input){
     let fetch = parseApolloToMongDB(input)
     let result = await Schema.find(fetch)
