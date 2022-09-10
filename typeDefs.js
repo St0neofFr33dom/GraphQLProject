@@ -12,6 +12,7 @@ type Query{
     getBeorcClasses(input: BeorcInputs): [Beorc!]!
     getLaguzClasses(input: LaguzInputs): [Laguz!]!
     getAffinities(input: AffinityInputs): [Affinity!]!
+    Test: String
 }
 
 

@@ -135,6 +135,7 @@ export const resolvers = {
       async getAffinities (_, {input}) {
         return await fetchData(Affinity, input)
       },
+      Test() {return "Apollo capabale of returning data"},
       },
     // Character: {
     //   baseStats(character,{input}){
