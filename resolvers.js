@@ -47,11 +47,16 @@ return fetch
 async function fetchData(Schema, input){
   console.log("Checkpoint 6")
   if (input){
+    console.log("Checkpoint 7 (With input)")
     let fetch = parseApolloToMongDB(input)
+    console.log("Checkpoint 8 (With input)")
     let result = await Schema.find(fetch)
+    console.log("Checkpoint 9 (With input)")
     return result
   }
+    console.log("Checkpoint 7 (No input)")
     let result = await Schema.find()
+    console.log("Checkpoint 8 (No input)")
     return result
 }
 
