@@ -54,6 +54,17 @@ The url can be an Atlas MongDB cluster or your localhost
 
 <br />
 
+## GraphQL Schema 
+
+The full schema can be found here:
+
+https://fire-emblem-graphql-api.herokuapp.com/docs
+
+<br/>
+
+---
+
+<br />
 
 ## Tech Stack
 

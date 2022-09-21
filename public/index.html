@@ -16,8 +16,8 @@
         <p>This an API that you can make requests to, to get data/stats of the main Characters, the classes, weapons, items and affinities. </p>
         <p>Fire Emblem games have a lot of data, and rather than gathering it yourself for your own websites, you can request data to this API, and because it is GraphqQL format you can request only the data that you want in a single query</p>
         <h2>Instructions</h2>
-        <p>If you got to https://https://fire-emblem-graphql-api.herokuapp.com//graphql, there is a dashboard that you can simulate queries, it explains all the fields, nested included</p>
-        <p>If you want to make requests to it using fetch or axios, you make a post request to https://https://fire-emblem-graphql-api.herokuapp.com//graphql, the request's body will look consist of a json object, with only on key needed "query", then as the value between quotations you make the request the same way you would do on the dashboard</p>
+        <p>If you got to https://fire-emblem-graphql-api.herokuapp.com/graphql, there is a dashboard that you can simulate queries, it explains all the fields, nested included</p>
+        <p>If you want to make requests to it using fetch or axios, you make a post request to https://fire-emblem-graphql-api.herokuapp.com/graphql, the request's body will look consist of a json object, with only on key needed "query", then as the value between quotations you make the request the same way you would do on the dashboard</p>
         <h4>Example: You want to get a list of all the characters, getting their name, level and base stats</h4>
         <code>{
             "query": "query {getCharacters{name, level, baseStats{hitPoints,strength,magic,skill,speed,luck,defense,resistance}}}"
@@ -36,7 +36,7 @@
                 "variables":{"input":{"level":{"gte":10}},"input2":{"name":{"eq":"Vantage"}}}
             }
         </code>
-  
+        <p>The full graphQL schema can be found <a href="https://fire-emblem-graphql-api.herokuapp.com/docs" target="_blank">here</a></p>
     </main>
 </body>
 </html>

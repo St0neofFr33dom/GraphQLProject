@@ -103,10 +103,10 @@ scalar Any
 input FilterOperations{
     eq: Any
     ne: Any
-    gt: Int
-    gte: Int
-    lt: Int
-    lte: Int
+    gt: Float
+    gte: Float
+    lt: Float
+    lte: Float
 }
 
 
